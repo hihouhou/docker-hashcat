@@ -9,22 +9,24 @@ FROM debian:latest
 
 MAINTAINER hihouhou < hihouhou@hihouhou.com >
 
-ENV HASHCAT_VERSION hashcat-4.0.1.7.
+ENV HASHCAT_VERSION v4.2.1
 
 # Update & install packages for installing hashcat
 RUN apt-get update && \
-    apt-get install -y wget p7zip
+    apt-get install -y wget gcc make opencl-headers
 
 #Install and configure hashcat
 RUN mkdir hashcat && \
     cd hashcat && \
-    wget http://hashcat.net/files/${HASHCAT_VERSION}.7z && \
-    7zr e ${HASHCAT_VERSION}.7z
+    wget https://api.github.com/repos/hashcat/hashcat/tarball/${HASHCAT_VERSION} -O ${HASHCAT_VERSION}.tar.gz && \
+    tar xf  ${HASHCAT_VERSION}.tar.gz --strip-components=1
 
+WORKDIR /hashcat
+
+#Install
+RUN make install
 
 #Add link for binary
-RUN ln -s /hashcat/hashcat-cli64.bin /usr/bin/hashcat
-
-#EXPOSE 9000
+#RUN ln -s /hashcat/hashcat /usr/bin/hashcat
 
 #CMD ["/bin/bash""]
