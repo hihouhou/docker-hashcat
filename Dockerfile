@@ -13,7 +13,7 @@ ENV HASHCAT_VERSION v5.0.0
 
 # Update & install packages for installing hashcat
 RUN apt-get update && \
-    apt-get install -y wget gcc make opencl-headers
+    apt-get install -y wget gcc make git
 
 #Install and configure hashcat
 RUN mkdir hashcat && \
@@ -24,7 +24,12 @@ RUN mkdir hashcat && \
 WORKDIR /hashcat
 
 #Install
-RUN make install
+RUN git init && \
+    rm -r deps/git/* && \
+    git submodule add https://github.com/KhronosGroup/OpenCL-Headers.git deps/git/OpenCL-Headers && \
+    git submodule add https://github.com/Cyan4973/xxHash.git deps/git/xxHash && \
+    make && \
+    make install
 
 #Add link for binary
 #RUN ln -s /hashcat/hashcat /usr/bin/hashcat
