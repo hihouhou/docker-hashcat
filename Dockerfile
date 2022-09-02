@@ -9,7 +9,7 @@ FROM debian:latest
 
 MAINTAINER hihouhou < hihouhou@hihouhou.com >
 
-ENV HASHCAT_VERSION v6.2.5
+ENV HASHCAT_VERSION v6.2.6
 
 # Update & install packages for installing hashcat
 RUN apt-get update && \
