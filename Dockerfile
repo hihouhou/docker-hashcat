@@ -9,7 +9,7 @@ FROM debian:latest
 
 LABEL org.opencontainers.image.authors="hihouhou < hihouhou@hihouhou.com >"
 
-ENV HASHCAT_VERSION=v6.2.6
+ENV HASHCAT_VERSION=v7.1.0
 
 # Update & install packages for installing hashcat
 RUN apt-get update && \
